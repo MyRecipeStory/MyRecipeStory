@@ -3,7 +3,6 @@
     package="com.MRS.MyRecipeStory"
     android:versionCode="1"
     android:versionName="1.0" >
-<!--  뀨우우  -->
     <uses-sdk
         android:minSdkVersion="19"
         android:targetSdkVersion="19" />
