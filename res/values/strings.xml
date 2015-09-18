@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">My Recipe Story</string>
+    <string name="title_activity_write">WriteActivity</string>
+
+    <string-array name="weather">
+        <item>날씨</item>
+        <item>맑음</item>
+        <item>흐림</item>
+        <item>비</item>
+        <item>눈</item>
+    </string-array>
+
+    <string name="title_activity_view">ViewActivity</string>
+    <string name="testid">qpqpqpqp</string>
+    <string name="str_done">완료</string>
+    <string name="title_activity_nick_name">NickNameActivity</string>
+
+    <color name="bg">#FFFFFF</color>
+
+    <string name="title_activity_introduce">IntroduceActivity</string>
+
+</resources>
