@@ -10,16 +10,16 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 public class FoodnoteDBManager extends SQLiteOpenHelper {
 
 	// DB 생성, 테이블 생성, 버젼.
-	static final String DB_NAME = "foodnote.db";
-	static final String MEMBER_TABLE_NAME = "memberTBL";
-	static final int DB_VERSION = 5;
+	static final     String            DB_NAME           = "foodnote.db";
+	static final     String            MEMBER_TABLE_NAME = "memberTBL";
+	static final int                   DB_VERSION        = 5;
 
-	Context mContext = null;
+	                 Context           mContext          = null;
 
-	public static FoodnoteDBManager mDbManager = null;
+	public static    FoodnoteDBManager mDbManager        = null;
 
-	public static FoodnoteDBManager getInstance(Context context) {
-		if (mDbManager == null) {
+	public static    FoodnoteDBManager getInstance(Context context) {
+		if ( mDbManager == null ) {
 			mDbManager = new FoodnoteDBManager(context, DB_NAME, null, DB_VERSION);
 		}
 		return mDbManager;
@@ -28,7 +28,6 @@ public class FoodnoteDBManager extends SQLiteOpenHelper {
 	// DB 클래스 (singleton)으로 연결.
 	private FoodnoteDBManager(Context context, String db_name, CursorFactory factory, int version) {
 		super(context, db_name, factory, version);
-
 		mContext = context;
 	}
 
@@ -36,13 +35,13 @@ public class FoodnoteDBManager extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
 		db.execSQL("CREATE TABLE IF NOT EXISTS " + MEMBER_TABLE_NAME + "(" +
-				"mID            TEXT UNIQUE, " +
-				"mPassword      TEXT NOT NULL, " +
-				"mPassword2     TEXT NOT NULL, " +
-				"mNickName      TEXT," +
-				"mIntro         TEXT NULL," +
-				"mPicture         TEXT NULL," +
-				"PRIMARY KEY(mNickName));");
+				   "mID            TEXT UNIQUE, " +
+				   "mPassword      TEXT NOT NULL, " +
+				   "mPassword2     TEXT NOT NULL, " +
+				   "mNickName      TEXT," +
+				   "mIntro         TEXT NULL," +
+				   "mPicture       TEXT NULL," +
+				   "PRIMARY KEY(mNickName));");
 	}
 
 	@Override
@@ -66,11 +65,9 @@ public class FoodnoteDBManager extends SQLiteOpenHelper {
 
 	public int delete(String whereClause, String[] whereArgs) {
 		return getWritableDatabase().delete(MEMBER_TABLE_NAME, whereClause, whereArgs);
-
 	}
 
 	public Cursor query(String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy) {
 		return getReadableDatabase().query(MEMBER_TABLE_NAME, columns, selection, selectionArgs, groupBy, having, orderBy);
 	}
-
 }

@@ -31,20 +31,16 @@ import android.widget.Toast;
 @SuppressLint("SimpleDateFormat")
 public class WriteActivity extends Activity {
 
-	final int REQ_CODE_SELECT_IMAGE =100;
-
-	String name_Str = "";
-
-	WriteDBManager wDbManager = null;
-
-	String[] mWeather = null;
-	ArrayAdapter<String> mAdapter = null;
-	Spinner sp = null;
-	Button btn_reset, btn_capic, btn_submit;
-	EditText et_Title, et_Subject;
-	String wTitle, wSubject, wWeather;
-
-	Intent mintent;
+	final int                      REQ_CODE_SELECT_IMAGE = 100;
+	          String               name_Str              = "";
+	          WriteDBManager       wDbManager            = null;
+	          String[]             mWeather              = null;
+	          ArrayAdapter<String> mAdapter              = null;
+	          Spinner              sp                    = null;
+	          Button               btn_reset, btn_capic, btn_submit;
+	          EditText             et_Title, et_Subject;
+	          String               wTitle, wSubject, wWeather;
+	          Intent               mintent;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,34 +48,26 @@ public class WriteActivity extends Activity {
 		setContentView(R.layout.write);
 
 		wDbManager = WriteDBManager.getInstance(this);
-
 		// 버튼
-		btn_reset = (Button) findViewById(R.id.reset);
-		btn_capic = (Button) findViewById(R.id.capic);
+		btn_reset  = (Button) findViewById(R.id.reset);
+		btn_capic  = (Button) findViewById(R.id.capic);
 		btn_submit = (Button) findViewById(R.id.submit);
 
-		et_Title = (EditText) findViewById(R.id.food_Title);
+		et_Title   = (EditText) findViewById(R.id.food_Title);
 		et_Subject = (EditText) findViewById(R.id.food_Subject);
-
 		// 스피너
-		sp = (Spinner) findViewById(R.id.weather);
-
+		sp         = (Spinner) findViewById(R.id.weather);
 		// spinner 데이터 준비
-		mWeather = getResources().getStringArray(R.array.weather);
-
+		mWeather   = getResources().getStringArray(R.array.weather);
 		// 어댑터에 데이터 장착
-		mAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_dropdown_item, mWeather);
-
+		mAdapter   = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, mWeather);
 		// 스피터에 어뎁터 세팅
 		sp.setAdapter(mAdapter);
-
 		// 아이템 선택
 		sp.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
-			public void onItemSelected(AdapterView<?> parent, View view,
-					int position, long id) {
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				// TODO Auto-generated method stub
 				wWeather = mAdapter.getItem((int) id).toString();
 			}
@@ -94,20 +82,19 @@ public class WriteActivity extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-		if (requestCode == REQ_CODE_SELECT_IMAGE) {
-			if (resultCode == Activity.RESULT_OK) {
+		if ( requestCode == REQ_CODE_SELECT_IMAGE ) {
+			if ( resultCode == Activity.RESULT_OK ) {
 				try {
 					// Uri에서 이미지 이름을 얻어온다.
 					name_Str = getImageNameToUri(data.getData());
 
 					// 이미지 데이터를 비트맵으로 받아온다.
-					Bitmap image_bitmap = Images.Media.getBitmap(
-							getContentResolver(), data.getData());
-					ImageView image = (ImageView) findViewById(R.id.pic_image);
+					Bitmap    image_bitmap = Images.Media.getBitmap(
+							  getContentResolver(), data.getData());
+					ImageView image        = (ImageView) findViewById(R.id.pic_image);
 
 					// 배치해놓은 ImageView에 set
 					image.setImageBitmap(image_bitmap);
-
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -124,8 +111,7 @@ public class WriteActivity extends Activity {
 	public String getImageNameToUri(Uri data) {
 		String[] proj = { MediaStore.Images.Media.DATA };
 		Cursor cursor = managedQuery(data, proj, null, null, null);
-		int column_index = cursor
-				.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+		int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
 
 		cursor.moveToFirst();
 
@@ -142,7 +128,6 @@ public class WriteActivity extends Activity {
 			break;
 		}
 		case R.id.capic: {
-
 			// 2015-08-24작업
 			// 버튼 클릭시 처리로직
 			Intent intent = new Intent(Intent.ACTION_PICK);
@@ -150,22 +135,21 @@ public class WriteActivity extends Activity {
 			intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 			startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
 
-
 			break;
 		}
 		case R.id.submit: {
 
 			// 현재시간
-			long time = System.currentTimeMillis();
+			long             time    = System.currentTimeMillis();
 
 			SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 
-			String wDate = dayTime.format(new Date(time));
+			String           wDate   = dayTime.format(new Date(time));
 
-			wTitle = et_Title.getText().toString();
+			wTitle   = et_Title.getText().toString();
 			wSubject = et_Subject.getText().toString();
 			
-			if(wTitle.isEmpty()){
+			if( wTitle.isEmpty() ){
 				Toast.makeText(this, "제목을 입력해주세요", Toast.LENGTH_SHORT).show();
 				break;
 			}else if(wSubject.isEmpty()){
@@ -179,8 +163,8 @@ public class WriteActivity extends Activity {
 				break;
 			}
 			ContentValues addRowValue = new ContentValues();
-			mintent = getIntent();
-			String wNickName = mintent.getStringExtra("wNickName");
+			mintent                   = getIntent();
+			String        wNickName   = mintent.getStringExtra("wNickName");
 
 			addRowValue.put("wNickName", wNickName);
 			addRowValue.put("wTitle", wTitle);	
@@ -198,5 +182,4 @@ public class WriteActivity extends Activity {
 		}
 		}
 	}
-
 }

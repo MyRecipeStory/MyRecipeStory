@@ -11,16 +11,16 @@ import android.util.Log;
 public class WriteDBManager extends SQLiteOpenHelper {
 
 	// DB 생성, 테이블 생성, 버젼.
-	static final String DB_NAME = "write.db";
-	static final String WRITE_TABLE_NAME = "writeTBL";
-	static final int DB_VERSION = 3;	//20150824
+	static final     String         DB_NAME          = "write.db";
+	static final     String         WRITE_TABLE_NAME = "writeTBL";
+	static final int                DB_VERSION       = 3;	//20150824
 
-	Context mContext = null;
+	                 Context        mContext         = null;
 
-	public static WriteDBManager wDbManager = null;
+	public static    WriteDBManager wDbManager       = null;
 
-	public static WriteDBManager getInstance(Context context) {
-		if (wDbManager == null) {
+	public static    WriteDBManager getInstance(Context context) {
+		if ( wDbManager == null ) {
 			wDbManager = new WriteDBManager(context, DB_NAME, null, DB_VERSION);
 		}
 		return wDbManager;
@@ -29,7 +29,6 @@ public class WriteDBManager extends SQLiteOpenHelper {
 	// DB Singleton 으로 연결.
 	private WriteDBManager(Context context, String db_name, CursorFactory factory, int version) {
 		super(context, db_name, factory, version);
-
 		mContext = context;
 	}
 
@@ -37,22 +36,13 @@ public class WriteDBManager extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
 		db.execSQL("CREATE TABLE IF NOT EXISTS " + WRITE_TABLE_NAME + "("+
-				"_id			  INTEGER PRIMARY KEY AUTOINCREMENT,"+	
-				"wNickName        TEXT NOT NULL," +
-				"wTitle            TEXT NOT NULL, " +
-				"wSubject          TEXT NOT NULL, " +
-				"wDate          TEXT NOT NULL, " +
-				"wWeather          TEXT NOT NULL," +
-				"wPicture		TEXT NOT NULL);"); 
-				//"FOREIGN KEY(wNickName) REFERENCES memberTBL(mNickName); ");
-		
-		/*db.execSQL("CREATE TABLE IF NOT EXISTS " + WRITE_TABLE_NAME + "(" +
-				"mID            TEXT UNIQUE, " +
-				"mPassword      TEXT NOT NULL, " +
-				"mPassword2     TEXT NOT NULL, " +
-				"mNickName      TEXT," +
-				"mIntro         TEXT NULL," +
-				"PRIMARY KEY(mNickName));");*/
+				   "_id			  INTEGER PRIMARY KEY AUTOINCREMENT,"+	
+				   "wNickName     TEXT NOT NULL," +
+				   "wTitle        TEXT NOT NULL, " +
+				   "wSubject      TEXT NOT NULL, " +
+				   "wDate         TEXT NOT NULL, " +
+				   "wWeather      TEXT NOT NULL," +
+				   "wPicture	  TEXT NOT NULL);");
 		}
 
 	@Override
@@ -86,5 +76,4 @@ public class WriteDBManager extends SQLiteOpenHelper {
 		Log.d("확인 ? ", "쿼리");
 		return getReadableDatabase().query(WRITE_TABLE_NAME, columns, selection, selectionArgs, groupBy, having, orderBy);
 	}
-
 }

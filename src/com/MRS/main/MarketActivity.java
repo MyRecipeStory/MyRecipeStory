@@ -28,80 +28,49 @@ import android.os.Bundle;
 public class MarketActivity extends NMapActivity implements OnMapStateChangeListener, OnMapViewTouchEventListener, OnCalloutOverlayListener {
 
 	// '뒤로' 버튼 두번 입력시 어플리케이션 종료
-	private BackPressCloseHandler backPressCloseHandler;
+	private              BackPressCloseHandler backPressCloseHandler;
 	// API-KEY
-	private static final String API_KEY = "cd710fbb302d1ee5162dcd491598c406";
+	private static final String          API_KEY        = "cd710fbb302d1ee5162dcd491598c406";
 	// 맵뷰
-	NMapView mMapView = null;
+	                     NMapView        mMapView       = null;
 	// 맵컨트롤러
-	NMapController mMapController = null;
+	                     NMapController  mMapController = null;
 	// 레이아웃
-	LinearLayout MapContainer;
-	LocationManager mLocMgr;
+	                     LinearLayout    MapContainer;
+	                     LocationManager mLocMgr;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		// ���̹� ������ �ֱ� ���� LinearLayout ������Ʈ
-		MapContainer = (LinearLayout) findViewById(R.id.map);
-
-		// ���̹� ���� ��ü ����
-		mMapView = new NMapView(this);
-
-		// ���̹� ���� ��ü�� APIKEY ����
+		MapContainer          = (LinearLayout) findViewById(R.id.map);
+		mMapView              = new NMapView(this);
 		mMapView.setApiKey(API_KEY);
-
-		// set the activity content to the map view
 		setContentView(mMapView);
-
-		// ������ ��ġ�� �� �ֵ��� �ɼ� Ȱ��ȭ
 		mMapView.setClickable(true);
-
-		// ������ ���� ���� ���� �̺�Ʈ ����
 		mMapView.setOnMapStateChangeListener(this);
 		mMapView.setOnMapViewTouchEventListener(this);
-
-		// Ȯ��/��Ҹ� ���� �� ��Ʈ�ѷ� ǥ�� �ɼ� Ȱ��ȭ
 		mMapView.setBuiltInZoomControls(true, null);
-
-		// ���� ��ü�κ��� ��Ʈ�ѷ� ����
-		mMapController = mMapView.getMapController();
-
-		mLocMgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-		// '�ڷ�' ��ư Ŭ�� �� �� ����
+		mMapController        = mMapView.getMapController();
+		mLocMgr               = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		backPressCloseHandler = new BackPressCloseHandler(this);
 	}
 
-	/**
-	 * ������ �ʱ�ȭ�� �� ȣ��ȴ�. ���������� �ʱ�ȭ�Ǹ� errorInfo ��ü�� null�� ���޵Ǹ�, �ʱ�ȭ ���� ��
-	 * errorInfo��ü�� ���� ������ ���޵ȴ�.
-	 */
 	@Override
 	public void onMapInitHandler(NMapView mapview, NMapError errorInfo) {
-		if (errorInfo == null) { // ����
-			// startMyLocation(); // ���� ��ġ�� �̵�
+		if ( errorInfo == null ) {
+			// startMyLocation();
 			mMapController.setMapCenter(new NGeoPoint(37.566535, 126.977969), 11);
-		} else { // ����
+		} else {
 			android.util.Log.e("NMAP", "onMapInitHandler: error=" + errorInfo.toString());
 		}
 	}
-
-	/**
-	 * ���� �ִϸ��̼� ���� ���� �� ȣ��ȴ�. animType : ANIMATION_TYPE_PAN or
-	 * ANIMATION_TYPE_ZOOM animState : ANIMATION_STATE_STARTED or
-	 * ANIMATION_STATE_FINISHED
-	 */
 
 	@Override
 	public void onAnimationStateChange(NMapView arg0, int arg1, int arg2) {
 
 	}
 
-	/**
-	 * ���� �߽� ���� �� ȣ��Ǹ� ����� �߽� ��ǥ�� �Ķ���ͷ� ���޵ȴ�.
-	 */
 	@Override
 	public void onMapCenterChange(NMapView arg0, NGeoPoint arg1) {
 
@@ -112,9 +81,6 @@ public class MarketActivity extends NMapActivity implements OnMapStateChangeList
 
 	}
 
-	/**
-	 * ���� ���� ���� �� ȣ��Ǹ� ����� ���� ������ �Ķ���ͷ� ���޵ȴ�.
-	 */
 	@Override
 	public void onZoomLevelChange(NMapView arg0, int arg1) {
 
@@ -196,11 +162,9 @@ public class MarketActivity extends NMapActivity implements OnMapStateChangeList
 		mLocMgr.removeUpdates(mLocListener);
 	}
 
-	// '�ڷ�' ��ư �Է� �� �� ����
 	@Override
 	public void onBackPressed() {
 		// super.onBackPressed();
 		backPressCloseHandler.onBackPressed();
 	}
-
 }

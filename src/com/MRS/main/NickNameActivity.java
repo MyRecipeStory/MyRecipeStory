@@ -36,8 +36,10 @@ public class NickNameActivity extends Activity {
 
 		case R.id.nickCngBtn:
 			dismissDialog();
+			
 			break;
 		default:
+			
 			break;
 		}
 	}
@@ -48,26 +50,19 @@ public class NickNameActivity extends Activity {
 		mDialog = new Dialog(this);
 		mDialog.setTitle("Title");
 		mDialog.setContentView(innerView);
-
 		// Back키 눌렀을 경우 Dialog Cancel 여부 설정.
 		mDialog.setCancelable(true);
-
 		// Dialog 상단 좌측으로 이동.
 		mDialog.getWindow().setGravity(Gravity.BOTTOM);
-
 		// Dialog 호출 시 배경화면이 검정색으로 바뀌는 것 막기.
 		mDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-
 		// Dialog 밖을 터치 했을 경우 Dialog 사라지게 하기.
 		mDialog.setCanceledOnTouchOutside(true);
-
 		// Dialog 밖의 View를 터치할 수 있게 하기 (다른 View를 터치시 Dialog dismiss).
 		mDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
-
 		// Dialog 자체 배경을 투명하게 하기.
 		// mDialog.getWindow().setBackgroundDrawable
 		// (new ColorDrawable(android.graphics.Color.TRANSPARENT));
-
 		// Dialog Cancle시 Event 받기.
 		mDialog.setOnCancelListener(new OnCancelListener() {
 
@@ -97,17 +92,16 @@ public class NickNameActivity extends Activity {
 
 		// Dialog 상단에 붙임.
 		LayoutParams params = mDialog.getWindow().getAttributes();
-		params.width = LayoutParams.MATCH_PARENT;
-		params.height = LayoutParams.MATCH_PARENT;
+		params.width        = LayoutParams.MATCH_PARENT;
+		params.height       = LayoutParams.MATCH_PARENT;
 		mDialog.getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
 
 		mDialog.show();
 	}
 
 	private void dismissDialog() {
-		if (mDialog != null && mDialog.isShowing()) {
+		if ( mDialog != null && mDialog.isShowing() ) {
 			mDialog.dismiss();
 		}
 	}
-
 }

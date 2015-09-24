@@ -19,15 +19,15 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-	private PopupWindow mPopupWindow, mPopupWindow1;
+	private PopupWindow           mPopupWindow, mPopupWindow1;
 
-	TextView nick_tv;
-	TextView intro_tv;
-	String mNickName;
-	ListView list;
+	        TextView              nick_tv;
+	        TextView              intro_tv;
+	        String                mNickName;
+	        ListView              list;
 
-	WriteDBManager wDBManager = null;
-	List_CursorAdapter mAdapter = null;
+	        WriteDBManager        wDBManager = null;
+	        List_CursorAdapter    mAdapter   = null;
 	
 	private BackPressCloseHandler backHandler;
 
@@ -36,16 +36,14 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		backHandler = new BackPressCloseHandler(this);
-		Intent intent = getIntent();
-		mNickName = intent.getStringExtra("NickName");
+		backHandler      = new BackPressCloseHandler(this);
+		Intent intent    = getIntent();
+		mNickName        = intent.getStringExtra("NickName");
 		// 2015-08-19 작업
 		// 1. 데이터를 얻어옴
-		wDBManager = WriteDBManager.getInstance(this);
-		String columns[] = { "_id", "wNickName", "wTitle", "wSubject", "wDate",
-				"wWeather", "wPicture" };
-		Cursor c = wDBManager.query(columns, "wNickName='" + mNickName + "'",
-				null, null, null, null);
+		wDBManager       = WriteDBManager.getInstance(this);
+		String columns[] = { "_id", "wNickName", "wTitle", "wSubject", "wDate", "wWeather", "wPicture" };
+		Cursor c = wDBManager.query(columns, "wNickName='" + mNickName + "'", null, null, null, null);
 		/*
 		 * while(c.moveToNext()){
 		 * 
@@ -66,13 +64,11 @@ public class MainActivity extends Activity {
 		 */
 		// 2. 어댑터를 생성하고 데이터 설정
 		mAdapter = new List_CursorAdapter(this, c);
-
 		// 리스트 뷰에 어댑터 설정
-		list = (ListView) findViewById(R.id.list);
+		list     = (ListView) findViewById(R.id.list);
 		list.setAdapter(mAdapter);
 		// 작업 끝
-
-		nick_tv = (TextView) findViewById(R.id.nick_tv);
+		nick_tv  = (TextView) findViewById(R.id.nick_tv);
 		nick_tv.setText(mNickName);
 		intro_tv = (TextView) findViewById(R.id.intro_tv);
 
@@ -83,10 +79,8 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(MainActivity.this,
-						WriteActivity.class);
+				Intent intent = new Intent(MainActivity.this, WriteActivity.class);
 				intent.putExtra("wNickName", mNickName);
-
 				startActivity(intent);
 			}
 		});
@@ -94,17 +88,12 @@ public class MainActivity extends Activity {
 		nick_tv.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (v.isClickable()) {
-					View popupView = getLayoutInflater().inflate(
-							R.layout.nickname, null);
+				if ( v.isClickable() ) {
+					View popupView = getLayoutInflater().inflate(R.layout.nickname, null);
 
-					mPopupWindow = new PopupWindow(popupView,
-							LayoutParams.WRAP_CONTENT,
-							LayoutParams.WRAP_CONTENT);
-
+					mPopupWindow = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 					mPopupWindow.setAnimationStyle(-1); // (-1 : 미적용 / 0 : 적용)
 					mPopupWindow.showAsDropDown(nick_tv, 50, 50);
-
 				}
 			}
 		});
@@ -112,30 +101,23 @@ public class MainActivity extends Activity {
 		intro_tv.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v1) {
-				if (v1.isClickable()) {
-					View popupView1 = getLayoutInflater().inflate(
-							R.layout.introduce, null);
+				if ( v1.isClickable() ) {
+					View popupView1 = getLayoutInflater().inflate(R.layout.introduce, null);
 
-					mPopupWindow1 = new PopupWindow(popupView1,
-							LayoutParams.WRAP_CONTENT,
-							LayoutParams.WRAP_CONTENT);
-
+					mPopupWindow1 = new PopupWindow(popupView1, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 					mPopupWindow1.setAnimationStyle(-1); // (-1 : 미적용 / 0 : 적용)
 					mPopupWindow1.showAsDropDown(intro_tv, 50, 50);
 				}
 			}
 		});
-
 	}
 	// onCreate() End
-	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
+		if ( keyCode == KeyEvent.KEYCODE_BACK ) {
 			backHandler.onBackPressed();
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
 	}
-
 }
