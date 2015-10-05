@@ -18,7 +18,7 @@ import android.view.WindowManager;
 
 public class NickNameActivity extends Activity {
 
-	// Dialog 생성입니다.
+	// Dialog 생성.
 	private Dialog mDialog = null;
 
 	@Override
